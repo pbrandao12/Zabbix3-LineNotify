@@ -1,38 +1,6 @@
 #!/bin/bash
 
 # Author: @kenzo0107
-
-# Zabbix > Configuration > Action
-#
-# Default subject : PROBLEM alert - {TRIGGER.NAME} is {TRIGGER.STATUS}
-# Default message :
-# HOST: {HOST.NAME}
-# TRIGGER_NAME: {TRIGGER.NAME}
-# TRIGGER_STATUS: {TRIGGER.STATUS}
-# TRIGGER_SEVERITY: {TRIGGER.SEVERITY}
-# DATETIME: {DATE} / {TIME}
-# ITEM_ID: {ITEM.ID1}
-# ITEM_NAME: {ITEM.NAME1}
-# ITEM_KEY: {ITEM.KEY1}
-# ITEM_VALUE: {ITEM.VALUE1}
-# EVENT_ID: {EVENT.ID}
-# TRIGGER_URL: {TRIGGER.URL}
-#
-# Recovery subject : RECOVERY alert - {TRIGGER.NAME} is {TRIGGER.STATUS}
-# Recovery message :
-# HOST: {HOST.NAME}
-# TRIGGER_NAME: {TRIGGER.NAME}
-# TRIGGER_STATUS: {TRIGGER.STATUS}
-# TRIGGER_SEVERITY: {TRIGGER.SEVERITY}
-# DATETIME: {DATE} / {TIME}
-# ITEM_ID: {ITEM.ID1}
-# ITEM_NAME: {ITEM.NAME1}
-# ITEM_KEY: {ITEM.KEY1}
-# ITEM_VALUE: {ITEM.VALUE1}
-# EVENT_ID: {EVENT.ID}
-# TRIGGER_URL: {TRIGGER.URL}
-
-
 # LINE Notify Token - Media > "Send to".
 TOKEN="$1"
 
@@ -58,9 +26,9 @@ item_id=$(echo "${message}" | grep 'ITEM_ID:' | awk -F'ITEM_ID: ' '{print $2}' |
 # Line Notify notice message.
 notice="
 ${subject}
-[Host] ${host}
-[Date Time] ${datetime}
-[Status] ${trigger_status}
+[Nome do Host] ${host}
+[Horário] ${datetime}
+[Status da Trigger] ${trigger_status}
 ${item_name}: ${item_value}"
 
 curl https://notify-api.line.me/api/notify -H "Authorization: Bearer ${TOKEN}" -d "message=${notice}"
